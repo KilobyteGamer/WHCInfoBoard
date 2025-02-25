@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+ <!-- Refresh webpage every five minutes -->
+<meta http-equiv="refresh" content="300">
+
+<!-- Bootstrap -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+<!-- Google Fonts - Be Vietnam Pro -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
+<!-- Font Awesome -->
+<script src="https://kit.fontawesome.com/a82ce63f07.js" crossorigin="anonymous"></script>
+
+<!-- England Hockey GMS Script -->
+<script src="https://gmsfeed.co.uk/js/api.js"></script>
+
+<style>
+*{
+  box-sizing: border-box;
+}
+
+/* Background */
+.background {
+  background-color: #fff;
+}
+
+/* Page Title Row */
+.rowTitle {
+  float: left;
+  background-color:#ffc000;
+  display: flex;
+}
+
+/* WHC Crest Column */
+.columnCrest {
+  float: left;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+}
+
+.footer {
+  position: relative;
+  bottom: 0;
+  padding-top: 10px;
+  margin-top: 25px;
+}
+
+/* ------------------- */
+/* Google Slides Styles*/
+/* ------------------- */
+
+/* Google Slides Scaler */
+.google-slides-container{
+  position: relative;
+  width: 100%;
+  padding-top: 100%;
+  overflow: hidden;
+}
+
+.google-slides-container iframe{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+}
+
+/* ----------- */
+/* Font Styles */
+/* ----------- */
+
+h1 {
+  color: #000;
+  display: flex;
+  justify-content: center;
+  font-family: "Be Vietnam Pro", serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+h2 {
+  color: #000;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  font-family: "Be Vietnam Pro", serif;
+  font-weight: 600;
+  font-style: normal;
+  padding-top: 20px;
+  padding-bottom:10px;
+}
+
+h3 {
+  color: #000;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  font-family: "Be Vietnam Pro", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+i {
+  font-size: 50px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+/* ------------------- */
+/* GMS DEFAULT STYLING */
+/* ------------------- */
+
+/* This styling applies to all GMS tables */
+.gms-table { width: 100%; margin: 0; border-collapse: collapse }
+.gms-table th { text-align: left; background-color: silver }
+.gms-table th, .gms-table td { border: 1px solid; padding: 3px 10px; border-color: silver }
+.gms-footnote, .gms-filter { margin: 0 0 2rem }
+.gms-clubteam:not(.gms-button), .gms-boldteam { font-weight: 700 }
+.gms-filter > div { margin: 0 0 1rem }
+.gms-filter fieldset { width: fit-content }
+.gms-filter legend { padding: 0px }
+
+/* This styling sets alignment for specific tables */
+.gms-table-results th:nth-child(4), .gms-table-results td:nth-child(4) { text-align: center }
+.gms-table-league td:nth-child(n+3), .gms-table-league th:nth-child(n+3) { text-align: right }
+.gms-table-fixtures td:first-child, .gms-table-results td:first-child, .gms-table-league.gms-table-custom td:last-child { white-space: nowrap }
+
+/* The following will highlight team or club win, draw and loss on results */
+.gms-form { display: inline-block; width: 1.25rem; text-align: center }
+.gms-win { background-color: green }
+.gms-draw { background-color: dimgray }
+.gms-loss { background-color: red }
+.gms-win, .gms-draw, .gms-loss { color: white; font-weight: 700 }
+
+/* Helps makes GMS feed responsive depending on screen size and input device */
+@media screen and (max-width: 767px) { .gms-table { overflow-x: auto; display: block; white-space: nowrap } .gms-nomobile { display: none } }
+@media not screen and (max-width: 767px) { .gms-mobile { display: none } }
+@media (hover: hover) and (pointer: fine) { .gms-detaillink { cursor: pointer } .gms-detaillink:hover { background-color: #ffc000 } }
+
+/* Styling for fixtures and results displayed as list and fixture details */
+.gms-list > * + * { margin-top: 1.5rem; margin-bottom: 1.5rem }
+.gms-list + .gms-footnote { margin-top: 1rem }
+.gms-card { text-align: center; padding: 3px 3px; border-radius: 0.5rem; position: relative }
+.gms-card, .gms-cardtime, .gms-cardnoscore, .gms-fixturedetails > div { border: 1px solid; border-color: silver }
+.gms-cardtitle, .gms-cancel, .gms-card .gms-directions-card { font-weight: 700; font-size: larger }
+.gms-cancel { position: absolute; right: 0.5rem; top: 0 }
+.gms-cardfixture, .gms-cardscorers { display: flex; gap: 0.5rem; align-items: center }
+.gms-cardhome { flex: 1 1 0%; text-align: right }
+.gms-carddivide { padding: 0.25rem 0.5rem }
+.gms-cardtime, .gms-cardnoscore { font-weight: 700; border-radius: 0.375rem; background-color: white }
+.gms-cardaway { flex: 1 1 0%; text-align: left }
+.gms-cardscorers { font-size: smaller }
+.gms-cardstatus { background-color: black; color: white; margin: 0.25rem auto; width:fit-content; padding: 0.25rem 0.5rem }
+.gms-directions-card { font-weight: 700; max-width: max-content; margin-left: auto; margin-right: auto; padding: 0.5rem; color: white; background-color: black; border-radius: 0.375rem; display: flex; flex-direction: column; row-gap: 0.75rem }
+.gms-directions-btns { display: flex; gap: 0.5rem }
+.gms-directions-btns svg { width: 2rem; height: 2rem; pointer-events: none }
+.gms-map-google, .gms-map-apple { background-color: white }
+.gms-map-waze { background-color: #05c8f7 }
+.gms-fixture .gms-card > *, .gms-cardform { margin-top: 0.5rem; margin-bottom: 0.5rem }
+.gms-fixturedetails { display: flex; flex-wrap: wrap; gap: 1rem }
+.gms-fixturedetails > div { flex-grow: 1; padding: 0.5rem 0.5rem; border-radius: 0.5rem }
+.gms-fixturedetails img { display: inline; width: 1.5rem; height: 1.5rem; vertical-align: middle; margin-right: 0.25rem }
+.gms-fixturedetails ul { list-style-type: none; padding: 0; margin: 0 }
+.gms-players li { display: flex; align-items: center }
+.gms-players svg { width: 1rem; height: 1rem }
+
+/* GMS Styling KB Edits */
+.gms-wrapper {
+  font-family: "Be Vietnam Pro", serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: center;
+}
+
+.gms-card {
+  font-family: "Be Vietnam Pro", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.gms-players {
+  font-family: "Be Vietnam Pro", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.gms-officials {
+  font-family: "Be Vietnam Pro", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.gms-cancel {
+  font-family: "Be Vietnam Pro", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.gms-footnote {
+  font-size: 0px;
+  margin: 10px;
+}
+
+.gms-list + .gms-footnote {
+  margin-top: 10px;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container-fluid">
+
+<div class="row" style="background-color: #ffc000; display: flex; justify-content: center; align-items: center;">
+  <div class="col-lg-1 text-center">
+    <img src="https://www.withamhockeyclub.co.uk/whc_eagle.webp" style="width:100%; min-width: 100px; max-width:120px;"></img>
+  </div>
+  <div class="col-lg-11 text-center align-middle"">
+    <h1>Results & Fixtures</h1>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-sm-4">
+    <h2>Mens</h2>
+    <h3>Mens 1XI</h3>
+    <div class="gms-wrapper gms-ajax" data-method="api" data-show="results+fixtures" data-team="384862b8-21f9-4c3e-8780-29772b8bebef" data-comp_id="eeed7fcc-a493-4e0d-a72a-f08b173498a4" data-whatson="3" data-sort_by="fixtureTime" data-options="showDetail:yes,showList:yes" data-css="no"></div>
+    <h3>Mens 2XI</h3>
+    <div class="gms-wrapper gms-ajax" data-method="api" data-show="fixtures+results" data-team="5b9e5538-addb-4563-97a4-bc1558999dfe" data-comp_id="38ccef6c-66d2-4c32-a4bb-50632304d8e9" data-whatson="3" data-sort_by="fixtureTime" data-options="showDetail:yes,showList:yes" data-css="no"></div>
+    <h3>Mens 3XI</h3>
+    <div class="gms-wrapper gms-ajax" data-method="api" data-show="fixtures+results" data-team="fe363357-aa42-4932-9485-67474c6b5751" data-comp_id="b3b3acac-5863-42cf-8855-2001571794bc" data-whatson="3" data-sort_by="fixtureTime" data-options="showDetail:yes,showList:yes" data-css="no"></div>
+    <h3>Mens 4XI</h3>
+    <div class="gms-wrapper gms-ajax" data-method="api" data-show="fixtures+results" data-team="7473f62d-4db5-4b71-ac97-cc432db50bf3" data-comp_id="f4dafd1f-ad74-4de1-aabf-0951f30be97a" data-whatson="3" data-sort_by="fixtureTime" data-options="showDetail:yes,showList:yes" data-css="no"></div>
+    <h3>Mens 5XI</h3>
+    <div class="gms-wrapper gms-ajax" data-method="api" data-show="fixtures+results" data-team="96a70c3d-59a4-409b-a66b-ffaa7981a0b4" data-comp_id="f4dafd1f-ad74-4de1-aabf-0951f30be97a" data-whatson="3" data-sort_by="fixtureTime" data-options="showDetail:yes,showList:yes" data-css="no"></div>
+  </div>
+  <div class="col-sm-4">
+    <h2>Ladies</h2>
+    <h3>Ladies 1XI</h3>
+    <div class="gms-wrapper gms-ajax" data-method="api" data-show="fixtures+results" data-team="3e976a96-0e0d-4191-b84d-c82464dbfd62" data-comp_id="b2b769cd-5aeb-4130-9ea4-c6f0f96d270c" data-whatson="3" data-sort_by="fixtureTime" data-options="showDetail:yes,showList:yes" data-css="no"></div>
+    <h3>Ladies 2XI</h3>
+    <div class="gms-wrapper gms-ajax" data-method="api" data-show="fixtures+results" data-team="b800399b-eeca-4abc-b719-aa67f5c2a6cd" data-comp_id="2b1fb67a-3d13-4467-a794-43b93df84a43" data-whatson="3" data-sort_by="fixtureTime" data-options="showDetail:yes,showList:yes" data-css="no"></div>
+    <br>
+    <h2>Vets</h2>
+    <div class="gms-wrapper gms-ajax" data-method="api" data-show="fixtures+results" data-team="7143df11-d6b0-48e1-9fcc-e78d6ba57f5f" data-comp_id="e7cabc75-ba42-4c42-b326-acd096a239ca" data-whatson="3" data-sort_by="fixtureTime" data-options="showDetail:yes,showList:yes" data-css="no"></div>
+  </div>
+  <div class="col-sm-4">
+    <h2>Upcoming Events:</h2>
+    <div class="google-slides-container">
+    <iframe src="https://docs.google.com/presentation/d/e/2PACX-1vSVHbJUsrBkAhedLTd_4S0uydZ6g72doBPT7Uhg_IdLG-4GwUyuKSLkRP4ax-pOWTOWgpR6Vt9dWLWt/embed?start=true&loop=true&delayms=10000&rm=minimal" style="background-color: #fff;" frameborder="0" width="100%" height="550" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
+    </div>
+  </div>
+</div>
+
+<div class="row footer" style="background-color: #f2f2f2;">
+  <div class="col-xs-4 text-right">
+  <a href="https://www.facebook.com/WithamHockeyClubOfficial"><i class="fa-brands fa-facebook"></i></a>
+  </div>
+  <div class="col-xs-4 text-center">
+  <a href="https://www.instagram.com/withamhockeyclub"><i class="fa-brands fa-instagram"></i></a>
+  </div>
+  <div class="col-xs-4 text-left">
+  <a href="#"><i class="fa-brands fa-tiktok"></i></a>
+  </div>
+  <div class="col-xs-12 text-center">
+  <p style="font-size:12px;">Info Board by Kris Baker</p>
+  </div>
+</div>
+
+<script src="https://gmsfeed.co.uk/js/api.js"></script>
+
+</div>
+
+</body>
+</html>
